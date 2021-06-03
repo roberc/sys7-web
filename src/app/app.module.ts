@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NgwWowModule } from 'ngx-wow';
+// import { NgwWowModule } from 'ngx-wow';
 import {ParallaxDirective} from './soft/parallax.directive';
 import {YouTubePlayerModule} from '@angular/youtube-player';
 import {StickyNavDirective} from './soft/stickynav.directive';
@@ -25,7 +25,7 @@ import {LightboxEvent, LightboxWindowRef} from './soft/lightbox/lightbox-event.s
     imports: [
         BrowserModule.withServerTransition({appId: 'serverApp'}),
         AppRoutingModule,
-        NgwWowModule,
+        // NgwWowModule,
         LightboxModule,
         YouTubePlayerModule,
         NgxPageScrollCoreModule

@@ -1,10 +1,12 @@
 import {AfterContentInit, Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import { Router} from '@angular/router';
-import {NgwWowService} from 'ngx-wow';
+// import {NgwWowService} from 'ngx-wow';
 import {DOCUMENT} from '@angular/common';
 import {PageScrollService} from './soft/page-scroll/ngx-page-scroll.service';
 import {Lightbox} from './soft/lightbox/lightbox.service';
 import {LightboxConfig} from './soft/lightbox/lightbox-config.service';
+
+declare const WOW;
 
 /*
 https://demos.onepagelove.com/html/namari/
@@ -29,10 +31,10 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentInit {
 
     cur_menu = 'banner';
 
-    constructor(private router: Router, private wowService: NgwWowService,
+    constructor(private router: Router,
                 private pageScrollService: PageScrollService, @Inject(DOCUMENT) private document: any,
                 private lightbox: Lightbox, private lightboxConfig: LightboxConfig){
-        this.wowService.init();
+        (new WOW).init();
       /*  this.router.events.pipe(
             filter(event => event instanceof NavigationEnd)
         ).subscribe(event => {
