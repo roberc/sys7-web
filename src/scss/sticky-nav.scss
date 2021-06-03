@@ -1,0 +1,17 @@
+:root {
+    /* setting var for nav height, you can do this however you want */
+    --sticky-nav-height: 40px;
+}
+
+.sticky-nav-wrapper {
+    /* set min height on wrapper so that the page
+       doesn't awkwardly snap and lose height */
+    min-height: var(--sticky-nav-height);
+}
+
+.sticky-nav {
+    height: var(--sticky-nav-height);
+    background-color: white;
+
+    /* other styles */
+}
