@@ -7,6 +7,7 @@ import {Lightbox} from './soft/lightbox/lightbox.service';
 import {LightboxConfig} from './soft/lightbox/lightbox-config.service';
 import {filter} from 'rxjs/operators';
 import {Meta, Title} from '@angular/platform-browser';
+import {HttpClient} from '@angular/common/http';
 
 /*
 https://demos.onepagelove.com/html/namari/
@@ -30,10 +31,15 @@ export class AppComponent implements OnInit, AfterContentInit {
 
     cur_menu = 'banner';
 
+    record: {name: string, email: string, subject: string, body: string} = null;
+
+    send_msg() {
+        // console.log(this.record);
+    }
     constructor(private router: Router,
                 private pageScrollService: PageScrollService, @Inject(DOCUMENT) private document: any,
                 private lightbox: Lightbox, private lightboxConfig: LightboxConfig, private wowService: NgwWowService,
-                private title: Title, private meta: Meta) {
+                private title: Title, private meta: Meta, private http: HttpClient) {
 
         this.title.setTitle('Angular Website Test');
         this.meta.addTag({name: 'description', content: 'The template made to test my skills in Angular Universal SSR engine.'});
@@ -80,8 +86,14 @@ export class AppComponent implements OnInit, AfterContentInit {
     ngOnInit() {
         this.pageScrollService.scroll({
             document: this.document,
-            scrollTarget: '.theEnd',
+            scrollTarget: '.scrollto',
         });
+        this.record = {
+            name: '',
+            email: '',
+            subject: '',
+            body: ''
+        };
     }
 
     load_video() {

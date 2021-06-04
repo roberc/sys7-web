@@ -112,8 +112,11 @@ input, textarea {
     -moz-transition: all .3s linear;
     transition: all .3s linear;
     border-radius: 3px;
+    width: 90%;
 }
-
+textarea {
+    height: 170px;
+}
 input {
     height: 40px;
     margin: 3px 0;

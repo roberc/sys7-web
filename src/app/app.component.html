@@ -88,6 +88,10 @@
                             <li>
                                 <a pageScroll [class.active]="cur_menu == 'pricing'" (pageScrollFinish)="scroll('pricing')" href="#pricing">Pricing</a>
                             </li>
+                            <li>
+                                <a pageScroll [class.active]="cur_menu == 'contacts'" (pageScrollFinish)="scroll('contacts')" href="#contacts">Contacts</a>
+                            </li>
+
                         </ul>
                     </nav>
                     <!--End of Main Navigation-->
@@ -102,7 +106,7 @@
         </div><!--End of Header-->
 
         <!--Banner Content-->
-        <div id="banner-content" class="row clearfix theEnd" parallax [ratio]=".5">
+        <div id="banner-content" class="row clearfix" parallax [ratio]=".5">
 
             <div class="col-38">
 
@@ -381,9 +385,7 @@
 
             </div>
         </section>
-        <!--End of Clients-->
 
-        <!--Pricing Tables-->
         <section id="pricing" class="secondary-color text-center scrollto clearfix ">
             <div class="row clearfix">
 
@@ -392,7 +394,6 @@
                     <h2 class="section-title">We have the right package for you</h2>
                 </div>
 
-                <!--Pricing Block-->
                 <div class="pricing-block col-3 wow fadeInUp" data-wow-delay="0.4s">
                     <div class="pricing-block-content">
                         <h3>Personal</h3>
@@ -411,9 +412,7 @@
                         <a href="#" class="button">BUY TODAY</a>
                     </div>
                 </div>
-                <!--End Pricing Block-->
 
-                <!--Pricing Block-->
                 <div class="pricing-block featured col-3 wow fadeInUp" data-wow-delay="0.6s">
                     <div class="pricing-block-content">
                         <h3>Student</h3>
@@ -432,9 +431,7 @@
                         <a href="#" class="button">BUY TODAY</a>
                     </div>
                 </div>
-                <!--End Pricing Block-->
 
-                <!--Pricing Block-->
                 <div class="pricing-block col-3 wow fadeInUp" data-wow-delay="0.8s">
                     <div class="pricing-block-content">
                         <h3>Business</h3>
@@ -453,23 +450,44 @@
                         <a href="#" class="button">BUY TODAY</a>
                     </div>
                 </div>
-                <!--End Pricing Block-->
 
             </div>
         </section>
-        <!--End of Pricing Tables-->
 
+        <section id="contacts" class="secondary-color text-center scrollto clearfix ">
+            <div class="row clearfix">
+                <div class="section-heading">
+                    <h3>CALL US</h3>
+                    <h2 class="section-title">Do you need anything we can offer? Yes, you do.</h2>
+                </div>
+
+                <div class="pricing-block col-3 wow fadeInUp" data-wow-delay="0.4s">
+                    <div class="pricing-block-content">
+                        <h3>Request An Assistance</h3>
+                        <p class="pricing-sub">Please fill in all required data</p>
+                        <ul>
+                            <li><input placeholder="Name, Surname" name="name" [(ngModel)]="record.name"></li>
+                            <li><input placeholder="Email Address" name="email" [(ngModel)]="record.email"></li>
+                            <li><input placeholder="Subject" name="subject" [(ngModel)]="record.subject"></li>
+                            <li><textarea placeholder="Body of the Message" [(ngModel)]="record.body"></textarea></li>
+                        </ul>
+                        <a (click)="send_msg()" class="button">SEND A MESSAGE</a>
+                    </div>
+                </div>
+
+                <div class="pricing-block featured col-2-3 wow fadeInUp" data-wow-delay="0.6s">
+                    <div class="pricing-block-content">
+                        map coming up into this block
+                    </div>
+                </div>
+
+            </div>
+        </section>
     </main>
-    <!--End Main Content Area-->
 
-
-    <!--Footer-->
     <footer id="landing-footer" class="clearfix">
         <div class="row clearfix">
-
-            <p id="copyright" class="col-2">Made with love by <a href="https://www.shapingrain.com">ShapingRain</a></p>
-
-            <!--Social Icons in Footer-->
+            <p id="copyright" class="col-2">Ported to Angular by <a href="https://www.ww7.co.uk">WW7</a> on <a href="https://sys7.eu">SYS7</a></p>
             <ul class="col-2 social-icons">
                 <li>
                     <a target="_blank" title="Facebook" href="https://www.facebook.com/username">
@@ -497,13 +515,8 @@
                     </a>
                 </li>
             </ul>
-            <!--End of Social Icons in Footer-->
         </div>
     </footer>
-    <!--End of Footer-->
-
 </div>
-
-<!-- Include JavaScript resources -->
 
 <!-- router-outlet></router-outlet -->

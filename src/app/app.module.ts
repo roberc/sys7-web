@@ -16,6 +16,8 @@ import {LightboxEvent, LightboxWindowRef} from './soft/lightbox/lightbox-event.s
 import {NgwWowModule} from 'ngx-wow';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import {FormsModule} from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
     declarations: [
@@ -25,6 +27,8 @@ import { environment } from '../environments/environment';
         NgxPageScrollDirective
     ],
     imports: [
+        FormsModule,
+        HttpClientModule,
         BrowserModule.withServerTransition({ appId: 'serverApp' }),
         AppRoutingModule,
         NgwWowModule,
