@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-// import { NgwWowModule } from 'ngx-wow';
 import {ParallaxDirective} from './soft/parallax.directive';
 import {YouTubePlayerModule} from '@angular/youtube-player';
 import {StickyNavDirective} from './soft/stickynav.directive';
@@ -14,6 +13,7 @@ import {LightboxModule} from './soft/lightbox/lightbox.module';
 import {Lightbox} from './soft/lightbox/lightbox.service';
 import {LightboxConfig} from './soft/lightbox/lightbox-config.service';
 import {LightboxEvent, LightboxWindowRef} from './soft/lightbox/lightbox-event.service';
+import {NgwWowModule} from 'ngx-wow';
 
 @NgModule({
     declarations: [
@@ -23,9 +23,9 @@ import {LightboxEvent, LightboxWindowRef} from './soft/lightbox/lightbox-event.s
         NgxPageScrollDirective
     ],
     imports: [
-        BrowserModule.withServerTransition({ appId: 'serverApp' }).withServerTransition({appId: 'serverApp'}),
+        BrowserModule.withServerTransition({ appId: 'serverApp' }),
         AppRoutingModule,
-        // NgwWowModule,
+        NgwWowModule,
         LightboxModule,
         YouTubePlayerModule,
         NgxPageScrollCoreModule
