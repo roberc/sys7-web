@@ -17,7 +17,8 @@ import {NgwWowModule} from 'ngx-wow';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import {FormsModule} from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
+import {HttpClientJsonpModule, HttpClientModule} from '@angular/common/http';
+import {GoogleMapsModule} from '@angular/google-maps';
 
 @NgModule({
     declarations: [
@@ -35,6 +36,8 @@ import {HttpClientModule} from '@angular/common/http';
         LightboxModule,
         YouTubePlayerModule,
         NgxPageScrollCoreModule,
+        GoogleMapsModule,
+        HttpClientJsonpModule,
         ServiceWorkerModule.register('ngsw-worker.js', {
           enabled: environment.production,
           // Register the ServiceWorker as soon as the app is stable

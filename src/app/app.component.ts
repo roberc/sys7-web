@@ -5,9 +5,10 @@ import {DOCUMENT} from '@angular/common';
 import {PageScrollService} from './soft/page-scroll/ngx-page-scroll.service';
 import {Lightbox} from './soft/lightbox/lightbox.service';
 import {LightboxConfig} from './soft/lightbox/lightbox-config.service';
-import {filter} from 'rxjs/operators';
+import {catchError, filter, map} from 'rxjs/operators';
 import {Meta, Title} from '@angular/platform-browser';
 import {HttpClient} from '@angular/common/http';
+import {Observable, of} from 'rxjs';
 
 /*
 https://demos.onepagelove.com/html/namari/
@@ -31,8 +32,21 @@ export class AppComponent implements OnInit, AfterContentInit {
 
     cur_menu = 'banner';
 
-    record: {name: string, email: string, subject: string, body: string} = null;
+    gmap_loaded: Observable<boolean>;
 
+    record: {name: string, email: string, subject: string, body: string} = null;
+    google_options: google.maps.MapOptions = {
+        mapTypeId: 'roadmap',
+        zoomControl: true,
+        scrollwheel: true,
+        disableDoubleClickZoom: true,
+        maxZoom: 20,
+        minZoom: 8,
+        tilt: 45
+    };
+    zoom = 16;
+    center: google.maps.LatLngLiteral;
+    google;
     send_msg() {
         // console.log(this.record);
     }
@@ -71,6 +85,20 @@ export class AppComponent implements OnInit, AfterContentInit {
 
             this.gallery.push(album);
         }
+        this.gmap_loaded = http.jsonp('https://maps.googleapis.com/maps/api/js?key=AIzaSyAq6NuB5SeC_48vHslYcw0ghKdo4wlTNrA', 'callback')
+            .pipe(
+                map(() => {
+                    this.google = window['google'];
+                    return true;
+                }),
+                catchError(() => of(false)),
+            );
+        navigator.geolocation.getCurrentPosition((position) => {
+            this.center = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude,
+            }
+        });
     }
 
     ngAfterContentInit() {
