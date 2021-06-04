@@ -6,6 +6,7 @@ import {PageScrollService} from './soft/page-scroll/ngx-page-scroll.service';
 import {Lightbox} from './soft/lightbox/lightbox.service';
 import {LightboxConfig} from './soft/lightbox/lightbox-config.service';
 import {filter} from 'rxjs/operators';
+import {Meta, Title} from '@angular/platform-browser';
 
 /*
 https://demos.onepagelove.com/html/namari/
@@ -31,9 +32,12 @@ export class AppComponent implements OnInit, AfterContentInit {
 
     constructor(private router: Router,
                 private pageScrollService: PageScrollService, @Inject(DOCUMENT) private document: any,
-                private lightbox: Lightbox, private lightboxConfig: LightboxConfig, private wowService: NgwWowService) {
+                private lightbox: Lightbox, private lightboxConfig: LightboxConfig, private wowService: NgwWowService,
+                private title: Title, private meta: Meta) {
 
-        // this.wowService.init();
+        this.title.setTitle('Angular Website Test');
+        this.meta.addTag({name: 'description', content: 'The template made to test my skills in Angular Universal SSR engine.'});
+
         this.router.events.pipe(
                     filter(event => event instanceof NavigationEnd)
                 ).subscribe(event => {
