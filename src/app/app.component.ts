@@ -1,7 +1,7 @@
-import {AfterContentInit, Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core';
+import {AfterContentInit, Component, ElementRef, Inject, OnInit, PLATFORM_ID, ViewChild} from '@angular/core';
 import {NavigationEnd, Router} from '@angular/router';
 import {NgwWowService} from 'ngx-wow';
-import {DOCUMENT} from '@angular/common';
+import {DOCUMENT, isPlatformBrowser} from '@angular/common';
 import {PageScrollService} from './soft/page-scroll/ngx-page-scroll.service';
 import {Lightbox} from './soft/lightbox/lightbox.service';
 import {LightboxConfig} from './soft/lightbox/lightbox-config.service';
@@ -53,7 +53,7 @@ export class AppComponent implements OnInit, AfterContentInit {
     constructor(private router: Router,
                 private pageScrollService: PageScrollService, @Inject(DOCUMENT) private document: any,
                 private lightbox: Lightbox, private lightboxConfig: LightboxConfig, private wowService: NgwWowService,
-                private title: Title, private meta: Meta, private http: HttpClient) {
+                private title: Title, private meta: Meta, private http: HttpClient, @Inject(PLATFORM_ID) private platformId: Object) {
 
         this.title.setTitle('Angular Website Test');
         this.meta.addTag({name: 'description', content: 'The template made to test my skills in Angular Universal SSR engine.'});
@@ -85,20 +85,23 @@ export class AppComponent implements OnInit, AfterContentInit {
 
             this.gallery.push(album);
         }
-        this.gmap_loaded = http.jsonp('https://maps.googleapis.com/maps/api/js?key=AIzaSyAq6NuB5SeC_48vHslYcw0ghKdo4wlTNrA', 'callback')
-            .pipe(
-                map(() => {
-                    this.google = window['google'];
-                    return true;
-                }),
-                catchError(() => of(false)),
-            );
-        navigator.geolocation.getCurrentPosition((position) => {
-            this.center = {
-                lat: position.coords.latitude,
-                lng: position.coords.longitude,
-            }
-        });
+        if (isPlatformBrowser(this.platformId)) {
+            this.gmap_loaded = http.jsonp('https://maps.googleapis.com/maps/api/js?key=AIzaSyAq6NuB5SeC_48vHslYcw0ghKdo4wlTNrA', 'callback')
+                .pipe(
+                    map(() => {
+                        this.google = window['google'];
+                        return true;
+                    }),
+                    catchError(() => of(false)),
+                );
+
+            navigator.geolocation.getCurrentPosition((position) => {
+                this.center = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude,
+                }
+            });
+        }
     }
 
     ngAfterContentInit() {
