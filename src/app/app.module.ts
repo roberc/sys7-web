@@ -14,6 +14,8 @@ import {Lightbox} from './soft/lightbox/lightbox.service';
 import {LightboxConfig} from './soft/lightbox/lightbox-config.service';
 import {LightboxEvent, LightboxWindowRef} from './soft/lightbox/lightbox-event.service';
 import {NgwWowModule} from 'ngx-wow';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
     declarations: [
@@ -28,7 +30,13 @@ import {NgwWowModule} from 'ngx-wow';
         NgwWowModule,
         LightboxModule,
         YouTubePlayerModule,
-        NgxPageScrollCoreModule
+        NgxPageScrollCoreModule,
+        ServiceWorkerModule.register('ngsw-worker.js', {
+          enabled: environment.production,
+          // Register the ServiceWorker as soon as the app is stable
+          // or after 30 seconds (whichever comes first).
+          registrationStrategy: 'registerWhenStable:30000'
+        })
     ],
     providers: [PageScrollService, Lightbox, LightboxConfig, LightboxEvent, LightboxWindowRef],
     bootstrap: [AppComponent]
