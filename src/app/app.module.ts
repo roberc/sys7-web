@@ -23,7 +23,7 @@ import {LightboxEvent, LightboxWindowRef} from './soft/lightbox/lightbox-event.s
         NgxPageScrollDirective
     ],
     imports: [
-        BrowserModule.withServerTransition({appId: 'serverApp'}),
+        BrowserModule.withServerTransition({ appId: 'serverApp' }).withServerTransition({appId: 'serverApp'}),
         AppRoutingModule,
         // NgwWowModule,
         LightboxModule,
