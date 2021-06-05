@@ -1,4 +1,15 @@
-import {Directive, EventEmitter, Inject, Input, OnChanges, OnDestroy, Optional, Output, SimpleChanges} from '@angular/core';
+import {
+    Directive,
+    ElementRef,
+    EventEmitter,
+    Inject,
+    Input,
+    OnChanges,
+    OnDestroy,
+    Optional,
+    Output,
+    SimpleChanges
+} from '@angular/core';
 import {NavigationCancel, NavigationEnd, NavigationError, Router, UrlTree} from '@angular/router';
 import {DOCUMENT} from '@angular/common';
 
@@ -10,56 +21,31 @@ import {PageScrollService} from './ngx-page-scroll.service';
 @Directive({
     selector: '[pageScroll]',
     host: {
-        '(click)': 'handleClick($event)',
+        '(click)': 'handleClick()',
     },
 })
 export class NgxPageScrollDirective implements OnChanges, OnDestroy {
-    @Input()
-    public routerLink: any;
-
-    @Input()
-    public href: string;
-
-    @Input()
-    public fragment: string;
-
-    @Input()
-    public pageScrollTarget: string;
-
-    @Input()
-    public pageScrollHorizontal: boolean;
-
-    @Input()
-    public pageScrollOffset: number;
-
-    @Input()
-    public pageScrollDuration: number;
-
-    @Input()
-    public pageScrollSpeed: number;
-
-    @Input()
-    public pageScrollEasing: EasingLogic;
-
-    @Input()
-    public pageScrollInterruptible: boolean;
-
-    @Input()
-    public pageScrollInView: boolean;
-
-    @Input()
-    public pageScrollAdjustHash = false;
-
-    @Input()
-    public pageScroll: string;
-
-    @Output()
-    pageScrollFinish: EventEmitter<boolean> = new EventEmitter<boolean>();
+    @Input() public routerLink: any;
+    @Input() public href: string;
+    @Input() public fragment: string;
+    @Input() public pageScrollTarget: string;
+    @Input() public pageScrollHorizontal: boolean;
+    @Input() public pageScrollOffset: number;
+    @Input() public pageScrollDuration: number;
+    @Input() public pageScrollSpeed: number;
+    @Input() public pageScrollEasing: EasingLogic;
+    @Input() public pageScrollInterruptible: boolean;
+    @Input() public pageScrollInView: boolean;
+    @Input() public pageScrollAdjustHash = false;
+    @Input() public pageScroll: string;
+    @Output() pageScrollFinish: EventEmitter<boolean> = new EventEmitter<boolean>();
+    @Output() pageScrollHashing: EventEmitter<void> = new EventEmitter<void>();
 
     private pageScrollInstance: PageScrollInstance;
-    private document: Document;
+    private readonly document: Document;
 
-    constructor(private pageScrollService: PageScrollService, @Optional() private router: Router, @Inject(DOCUMENT) document: any) {
+    constructor(private pageScrollService: PageScrollService, @Optional() private router: Router, @Inject(DOCUMENT) document: any,
+                private element: ElementRef) {
         this.document = (document as Document);
     }
 
@@ -74,7 +60,7 @@ export class NgxPageScrollDirective implements OnChanges, OnDestroy {
         }
     }
 
-    public handleClick(clickEvent: Event): boolean { // tslint:disable-line:no-unused-variable
+    public handleClick(): boolean { // tslint:disable-line:no-unused-variable
         if (this.routerLink && this.router !== null && this.router !== undefined) {
             let urlTree: UrlTree;
             if (typeof this.routerLink === 'string') {
@@ -138,7 +124,7 @@ export class NgxPageScrollDirective implements OnChanges, OnDestroy {
             if (this.pageScrollEasing) {
                 options.easingLogic = this.pageScrollEasing;
             }
-            if (this.pageScrollDuration !== undefined && this.pageScrollDuration !== null) {
+            if (this.pageScrollDuration) {
                 options.duration = this.pageScrollDuration;
             }
             if (this.pageScrollSpeed !== undefined && this.pageScrollSpeed !== null) {
@@ -160,6 +146,8 @@ export class NgxPageScrollDirective implements OnChanges, OnDestroy {
             this.router.navigate([], {
                 fragment: (this.pageScrollInstance.pageScrollOptions.scrollTarget as string).substr(1),
                 queryParamsHandling: 'preserve',
+            }).then(() => {
+                this.pageScrollHashing.emit();
             });
         }
     }

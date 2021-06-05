@@ -56,28 +56,28 @@
                     <nav id="nav-main" #menu class="sticky-nav">
                         <ul>
                             <li>
-                                <a pageScroll [pageScrollAdjustHash]="true" [class.active]="cur_menu == 'banner'" (pageScrollFinish)="scroll('banner')" href="#banner">Home</a>
+                                <a pageScroll [pageScrollAdjustHash]="true" [class.active]="cur_menu == 'banner'" (pageScrollHashing)="scroll('banner')" href="#banner">Home</a>
                             </li>
                             <li>
-                                <a pageScroll [pageScrollAdjustHash]="true" [class.active]="cur_menu == 'about'" (pageScrollFinish)="scroll('about')" href="#about">About</a>
+                                <a pageScroll [pageScrollAdjustHash]="true" [class.active]="cur_menu == 'about'" (pageScrollHashing)="scroll('about')" href="#about">About</a>
                             </li>
                             <li>
-                                <a pageScroll [pageScrollAdjustHash]="true" [class.active]="cur_menu == 'gallery'" (pageScrollFinish)="scroll('gallery')" href="#gallery">Gallery</a>
+                                <a pageScroll [pageScrollAdjustHash]="true" [class.active]="cur_menu == 'gallery'" (pageScrollHashing)="scroll('gallery')" href="#gallery">Gallery</a>
                             </li>
                             <li>
-                                <a pageScroll [pageScrollAdjustHash]="true" [class.active]="cur_menu == 'services'" (pageScrollFinish)="scroll('services')" href="#services">Services</a>
+                                <a pageScroll [pageScrollAdjustHash]="true" [class.active]="cur_menu == 'services'" (pageScrollHashing)="scroll('services')" href="#services">Services</a>
                             </li>
                             <li>
-                                <a pageScroll [class.active]="cur_menu == 'testimonials'" (pageScrollFinish)="scroll('testimonials')" href="#testimonials">Testimonials</a>
+                                <a pageScroll [pageScrollAdjustHash]="true" [class.active]="cur_menu == 'testimonials'" (pageScrollHashing)="scroll('testimonials')" href="#testimonials">Testimonials</a>
                             </li>
                             <li>
-                                <a pageScroll [class.active]="cur_menu == 'clients'" (pageScrollFinish)="scroll('clients')" href="#clients">Clients</a>
+                                <a pageScroll [pageScrollAdjustHash]="true" [class.active]="cur_menu == 'clients'" (pageScrollHashing)="scroll('clients')" href="#clients">Clients</a>
                             </li>
                             <li>
-                                <a pageScroll [class.active]="cur_menu == 'pricing'" (pageScrollFinish)="scroll('pricing')" href="#pricing">Pricing</a>
+                                <a pageScroll [pageScrollAdjustHash]="true" [class.active]="cur_menu == 'pricing'" (pageScrollHashing)="scroll('pricing')" href="#pricing">Pricing</a>
                             </li>
                             <li>
-                                <a pageScroll [class.active]="cur_menu == 'contacts'" (pageScrollFinish)="scroll('contacts')" href="#contacts">Contacts</a>
+                                <a pageScroll [pageScrollAdjustHash]="true" [class.active]="cur_menu == 'contacts'" (pageScrollHashing)="scroll('contacts')" href="#contacts">Contacts</a>
                             </li>
 
                         </ul>
@@ -187,7 +187,7 @@
         <div id="services" class="scrollto clearfix">
 
             <div class="row no-padding-bottom clearfix">
-                <div class="col-3" parallax [ratio]=".5">
+                <div class="col-3 primary-color" parallax [ratio]=".5">
                     <blockquote class="testimonial text-right bigtest">
                         <q>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
                             labore
@@ -395,8 +395,8 @@
                     <h2 class="section-title">Do you need anything we can offer? Yes, you do.</h2>
                 </div>
 
-                <div class="pricing-block col-3 wow fadeInUp" data-wow-delay="0.4s">
-                    <div class="pricing-block-content">
+                <div class="contacts-block col-3 wow fadeInUp" data-wow-delay="0.2s" #xcleft>
+                    <div class="contacts-block-content">
                         <h3>Request An Assistance</h3>
                         <p class="pricing-sub">Please fill in all required data</p>
                         <ul>
@@ -409,17 +409,11 @@
                     </div>
                 </div>
 
-                <div class="pricing-block featured col-2-3 wow fadeInUp" data-wow-delay="0.6s">
-                    <div>
-                        <div *ngIf="gmap_loaded | async" class="google-map">
-                            <google-map width="100%" height="530px" [zoom]="zoom" [center]="center" [options]="google_options">
-                                <map-marker
-                                    [position]="center"
-                                    [label]=""
-                                    [title]="'My Position'"
-                                    [options]="{ animation: google.maps.Animation.DROP }"
-                                >
-                                </map-marker>
+                <div class="contacts-block featured col-2-3 wow fadeInUp" data-wow-delay="0.6s">
+                    <div class="contacts-block-content google-map">
+                        <div *ngIf="gmap_loaded | async">
+                            <google-map width="100%" [height]="(xcleft?.clientHeight - 60) + 'px'" [zoom]="zoom" [center]="center" [options]="google_options">
+                                <map-marker [position]="center" [label]="" [title]="'My Position'" [options]="{ animation: google.maps.Animation.DROP }"></map-marker>
                             </google-map>
                         </div>
                     </div>

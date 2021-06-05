@@ -1,6 +1,7 @@
 {
-  "name": "sys7-web",
-  "short_name": "sys7-web",
+  "name": "SYS7 Web Sample Template",
+  "description": "SYS7 Web Sample Template - contact us to obtain any",
+  "short_name": "sys7-web-sample",
   "theme_color": "#1976d2",
   "background_color": "#fafafa",
   "display": "standalone",

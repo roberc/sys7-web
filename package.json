@@ -1,5 +1,5 @@
 {
-    "name": "sys7-web",
+    "name": "sys7-web-sample",
     "version": "0.0.1",
     "scripts": {
         "ng": "ng",
