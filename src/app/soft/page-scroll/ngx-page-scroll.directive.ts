@@ -1,15 +1,4 @@
-import {
-    Directive,
-    ElementRef,
-    EventEmitter,
-    Inject,
-    Input,
-    OnChanges,
-    OnDestroy,
-    Optional,
-    Output,
-    SimpleChanges
-} from '@angular/core';
+import {Directive, EventEmitter, Inject, Input, OnChanges, OnDestroy, Optional, Output, SimpleChanges} from '@angular/core';
 import {NavigationCancel, NavigationEnd, NavigationError, Router, UrlTree} from '@angular/router';
 import {DOCUMENT} from '@angular/common';
 
@@ -44,8 +33,7 @@ export class NgxPageScrollDirective implements OnChanges, OnDestroy {
     private pageScrollInstance: PageScrollInstance;
     private readonly document: Document;
 
-    constructor(private pageScrollService: PageScrollService, @Optional() private router: Router, @Inject(DOCUMENT) document: any,
-                private element: ElementRef) {
+    constructor(private pageScrollService: PageScrollService, @Optional() private router: Router, @Inject(DOCUMENT) document: any) {
         this.document = (document as Document);
     }
 
@@ -60,7 +48,7 @@ export class NgxPageScrollDirective implements OnChanges, OnDestroy {
         }
     }
 
-    public handleClick(): boolean { // tslint:disable-line:no-unused-variable
+    public handleClick(): boolean {
         if (this.routerLink && this.router !== null && this.router !== undefined) {
             let urlTree: UrlTree;
             if (typeof this.routerLink === 'string') {

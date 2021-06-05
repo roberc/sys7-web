@@ -1,4 +1,4 @@
-import {AfterContentInit, Component, ElementRef, Inject, OnInit, PLATFORM_ID, ViewChild} from '@angular/core';
+import {AfterContentInit, Component, Inject, OnInit, PLATFORM_ID} from '@angular/core';
 import {NavigationEnd, Router} from '@angular/router';
 import {NgwWowService} from 'ngx-wow';
 import {DOCUMENT, isPlatformBrowser} from '@angular/common';
@@ -19,9 +19,6 @@ https://demos.onepagelove.com/html/namari/
     templateUrl: './app.component.html',
 })
 export class AppComponent implements OnInit, AfterContentInit {
-    @ViewChild('menu', {static: true}) menu: ElementRef = new ElementRef<any>(null);
-    @ViewChild('mobile', {static: true}) mobile: ElementRef = new ElementRef<any>(null);
-
     show_site = false;
     mmenu_visible = false;
     show_bubbles = true;
@@ -47,6 +44,17 @@ export class AppComponent implements OnInit, AfterContentInit {
     zoom = 16;
     center: google.maps.LatLngLiteral;
     google;
+    _router: Router;
+    menus: any = [
+        {id: 'banner', prompt: 'Home'},
+        {id: 'about', prompt: 'About'},
+        {id: 'gallery', prompt: 'Gallery'},
+        {id: 'services', prompt: 'Services'},
+        {id: 'testimonials', prompt: 'Testimonials'},
+        {id: 'clients', prompt: 'Clients'},
+        {id: 'pricing', prompt: 'Pricing'},
+        {id: 'contacts', prompt: 'Contacts'},
+    ];
     send_msg() {
         // console.log(this.record);
     }
@@ -54,13 +62,13 @@ export class AppComponent implements OnInit, AfterContentInit {
                 private pageScrollService: PageScrollService, @Inject(DOCUMENT) private document: any,
                 private lightbox: Lightbox, private lightboxConfig: LightboxConfig, private wowService: NgwWowService,
                 private title: Title, private meta: Meta, private http: HttpClient, @Inject(PLATFORM_ID) private platformId: Object) {
-
+        this._router = router;
         this.title.setTitle('Angular Website Test');
         this.meta.addTag({name: 'description', content: 'The template made to test my skills in Angular Universal SSR engine.'});
 
         this.router.events.pipe(
                     filter(event => event instanceof NavigationEnd)
-                ).subscribe(event => {
+                ).subscribe(() => {
                     // Reload WoW animations when done navigating to page,
                     // but you are free to call it whenever/wherever you like
                     this.wowService.init();
@@ -105,9 +113,8 @@ export class AppComponent implements OnInit, AfterContentInit {
     }
 
     ngAfterContentInit() {
-        this.mobile.nativeElement.innerHTML = this.menu.nativeElement.innerHTML;
         setTimeout(() => this.show_site = true, 200);
-        setTimeout(() => this.show_bubbles = false, 2000);
+        setTimeout(() => this.show_bubbles = false, 1000);
     }
 
     show_mobile_menu() {
@@ -145,6 +152,7 @@ export class AppComponent implements OnInit, AfterContentInit {
 
     scroll(url: string) {
         this.cur_menu = url;
+        this.mmenu_visible = false;
     }
 
     close(): void {

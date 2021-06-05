@@ -5,24 +5,21 @@
         <div></div>
     </div>
 </div>
-
-<div class="page-border" data-wow-duration="0.7s" data-wow-delay="0.2s">
+<div class="page-border" data-wow-duration="0.5s" data-wow-delay="0.2s">
     <div class="top-border wow fadeInDown animated" style="visibility: visible; animation-name: fadeInDown;"></div>
     <div class="right-border wow fadeInRight animated" style="visibility: visible; animation-name: fadeInRight;"></div>
     <div class="bottom-border wow fadeInUp animated" style="visibility: visible; animation-name: fadeInUp;"></div>
     <div class="left-border wow fadeInLeft animated" style="visibility: visible; animation-name: fadeInLeft;"></div>
 </div>
-
 <div id="wrapper">
     <header id="banner" class="scrollto clearfix">
         <div id="header" class="nav-collapse sticky" ngStickyNav [stickyClass]="'nav-solid'">
             <div class="row clearfix">
                 <div class="col-1">
-                    <div id="logo">
+                    <a id="logo" pageScroll href="#wrapper" (pageScrollHashing)="scroll('wrapper')" [pageScrollAdjustHash]="true">
                         <img src="assets/images/logo.png" id="banner-logo" alt="Landing Page"/>
                         <img src="assets/images/logo-2.png" id="navigation-logo" alt="Landing Page"/>
-                    </div>
-
+                    </a>
                     <aside>
                         <ul class="social-icons">
                             <li>
@@ -52,41 +49,24 @@
                             </li>
                         </ul>
                     </aside>
-
-                    <nav id="nav-main" #menu class="sticky-nav">
+                    <nav id="nav-main" class="sticky-nav">
                         <ul>
-                            <li>
-                                <a pageScroll [pageScrollAdjustHash]="true" [class.active]="cur_menu == 'banner'" (pageScrollHashing)="scroll('banner')" href="#banner">Home</a>
+                            <li *ngFor="let m of menus">
+                                <a pageScroll [pageScrollAdjustHash]="true" [class.active]="cur_menu == m.id" (click)="scroll(m.id)" [href]="'#' +  m.id">{{ m.prompt }}</a>
                             </li>
-                            <li>
-                                <a pageScroll [pageScrollAdjustHash]="true" [class.active]="cur_menu == 'about'" (pageScrollHashing)="scroll('about')" href="#about">About</a>
-                            </li>
-                            <li>
-                                <a pageScroll [pageScrollAdjustHash]="true" [class.active]="cur_menu == 'gallery'" (pageScrollHashing)="scroll('gallery')" href="#gallery">Gallery</a>
-                            </li>
-                            <li>
-                                <a pageScroll [pageScrollAdjustHash]="true" [class.active]="cur_menu == 'services'" (pageScrollHashing)="scroll('services')" href="#services">Services</a>
-                            </li>
-                            <li>
-                                <a pageScroll [pageScrollAdjustHash]="true" [class.active]="cur_menu == 'testimonials'" (pageScrollHashing)="scroll('testimonials')" href="#testimonials">Testimonials</a>
-                            </li>
-                            <li>
-                                <a pageScroll [pageScrollAdjustHash]="true" [class.active]="cur_menu == 'clients'" (pageScrollHashing)="scroll('clients')" href="#clients">Clients</a>
-                            </li>
-                            <li>
-                                <a pageScroll [pageScrollAdjustHash]="true" [class.active]="cur_menu == 'pricing'" (pageScrollHashing)="scroll('pricing')" href="#pricing">Pricing</a>
-                            </li>
-                            <li>
-                                <a pageScroll [pageScrollAdjustHash]="true" [class.active]="cur_menu == 'contacts'" (pageScrollHashing)="scroll('contacts')" href="#contacts">Contacts</a>
-                            </li>
-
                         </ul>
                     </nav>
 
-                    <div id="nav-trigger" (click)="show_mobile_menu()" [class.open]="mmenu_visible">
-                        <span [class.open]="mmenu_visible"></span>
+                    <div id="nav-trigger" [class.open]="mmenu_visible">
+                        <span [class.open]="mmenu_visible" (click)="show_mobile_menu()"></span>
                     </div>
-                    <nav id="nav-mobile" #mobile [class.expanded]="mmenu_visible"></nav>
+                    <nav id="nav-mobile" [class.expanded]="mmenu_visible">
+                        <ul>
+                            <li *ngFor="let m of menus">
+                                <a pageScroll [pageScrollAdjustHash]="true" [class.active]="cur_menu == m.id" (click)="scroll(m.id)" [href]="'#' +  m.id">{{ m.prompt }}</a>
+                            </li>
+                        </ul>
+                    </nav>
 
                 </div>
             </div>
@@ -115,7 +95,6 @@
                         <p class="section-subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
                             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam!</p>
                     </div>
-
                 </div>
 
                 <div class="col-2-3">
@@ -178,7 +157,7 @@
             </div>
         </section>
 
-        <aside id="gallery" class="row text-center scrollto clearfix">
+        <aside id="gallery" class="text-center scrollto clearfix">
             <a *ngFor="let image of gallery; let i=index" class="col-3 wow fadeIn" data-wow-delay="0.4s">
                 <img src="{{ image['thumb'] }}" (click)="open(i)" alt="Landing Page"/>
             </a>
