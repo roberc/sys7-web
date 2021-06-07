@@ -19,6 +19,7 @@ import {environment} from '../environments/environment';
 import {FormsModule} from '@angular/forms';
 import {HttpClientJsonpModule, HttpClientModule} from '@angular/common/http';
 import {GoogleMapsModule} from '@angular/google-maps';
+import {NgxImageSwiperModule} from './soft/ngx-image-swiper/ngx-image-swiper.module';
 
 @NgModule({
     declarations: [
@@ -38,6 +39,7 @@ import {GoogleMapsModule} from '@angular/google-maps';
         NgxPageScrollCoreModule,
         GoogleMapsModule,
         HttpClientJsonpModule,
+        NgxImageSwiperModule,
         ServiceWorkerModule.register('ngsw-worker.js', {
             enabled: environment.production,
             // Register the ServiceWorker as soon as the app is stable

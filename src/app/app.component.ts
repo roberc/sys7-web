@@ -9,6 +9,7 @@ import {catchError, filter, map} from 'rxjs/operators';
 import {Meta, Title} from '@angular/platform-browser';
 import {HttpClient} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
+import {NgxSwiperConfig} from './soft/ngx-image-swiper/extras/NgxSwiperConfig';
 
 /*
 https://demos.onepagelove.com/html/namari/
@@ -30,6 +31,8 @@ export class AppComponent implements OnInit, AfterContentInit {
     cur_menu = 'banner';
 
     gmap_loaded: Observable<boolean>;
+
+    swiper_images: string[] = null;
 
     record: {name: string, email: string, subject: string, body: string} = null;
     google_options: google.maps.MapOptions = {
@@ -55,6 +58,13 @@ export class AppComponent implements OnInit, AfterContentInit {
         {id: 'pricing', prompt: 'Pricing'},
         {id: 'contacts', prompt: 'Contacts'},
     ];
+    swiperConfig: NgxSwiperConfig = {
+        navigationPlacement: 'inside',
+        pagination: true,
+        paginationPlacement: 'outside',
+        slideShow: true,
+        slideShowInterval: 6
+    };
     send_msg() {
         // console.log(this.record);
     }
@@ -80,6 +90,8 @@ export class AppComponent implements OnInit, AfterContentInit {
         lightboxConfig.resizeDuration = 0.2;
         // lightboxConfig.showZoom = true;
 
+        this.swiper_images = [];
+
         for (let i = 1; i <= 6; i++) {
             const src = 'assets/images/gallery-images/gallery-image-' + i + '.jpg';
             const caption = 'Image ' + i + ' caption here';
@@ -88,10 +100,10 @@ export class AppComponent implements OnInit, AfterContentInit {
                 src: src,
                 caption: caption,
                 thumb: thumb,
-
             };
 
             this.gallery.push(album);
+            this.swiper_images.push(src);
         }
         if (isPlatformBrowser(this.platformId)) {
             this.gmap_loaded = http.jsonp('https://maps.googleapis.com/maps/api/js?key=AIzaSyAq6NuB5SeC_48vHslYcw0ghKdo4wlTNrA', 'callback')
