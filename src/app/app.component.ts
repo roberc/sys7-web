@@ -66,7 +66,7 @@ export class AppComponent implements OnInit, AfterContentInit {
         slideShowInterval: 6
     };
     send_msg() {
-        // console.log(this.record);
+        console.log(this.record);
     }
     constructor(private router: Router,
                 private pageScrollService: PageScrollService, @Inject(DOCUMENT) private document: any,
@@ -106,7 +106,8 @@ export class AppComponent implements OnInit, AfterContentInit {
             this.swiper_images.push(src);
         }
         if (isPlatformBrowser(this.platformId)) {
-            this.gmap_loaded = http.jsonp('https://maps.googleapis.com/maps/api/js?key=AIzaSyAq6NuB5SeC_48vHslYcw0ghKdo4wlTNrA', 'callback')
+            const key = '';
+            this.gmap_loaded = http.jsonp('https://maps.googleapis.com/maps/api/js?key=' + key, 'callback')
                 .pipe(
                     map(() => {
                         this.google = window['google'];

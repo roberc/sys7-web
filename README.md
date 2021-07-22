@@ -1,27 +1,38 @@
 # Sys7Web
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.0.2.
+This is a living example of Angular Universal SSR.
+You can take it and test how SSR works. 
+My living example is hosted here: https://sample.ww7.co.uk/
 
-## Development server
+Whole html is left in the single template file. Modify it, deploy to the server and have a good day.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+# How To
 
-## Code scaffolding
+I assume that you know how to set up Angular and clone repo.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+After that use `npm run dev:ssr` to serve SSR pages from the `http://localhost:4000`
 
-## Build
+Production files will be generated with `npm run build:ssr`
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+All content in the dist/whatever you should upload to your production server and use `pm2` for serving.
+Read more about it here: https://pm2.keymetrics.io/
 
-## Running unit tests
+To use Google Map you should assign to the variable in the code your API key.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+# Credits
 
-## Running end-to-end tests
+I am not an artist so I had to find html template ready to use.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+I have used free single page template from here:
+https://demos.onepagelove.com/html/namari/
 
-## Further help
+To use few things that are not compatible with SSR in its original state I had to attach:
+    
+- ngStickyNav directive,
+- parallax directive,
+- ngx-page-scroll directive,
+- lightbox,
+- ngx-image-swiper
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+They all are under **src/app/soft** directory.
+
